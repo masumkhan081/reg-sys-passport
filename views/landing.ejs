@@ -1,0 +1,145 @@
+<div class="container-fluid row mt-sm-4 mt-1">
+    <!--start col-1 -->
+    <div class="col-md-3 d-flex flex-column gap-sm-5">
+        <div>
+            <span class="rounded text-success pb-1 h6">
+                <i class="fas fa-th-list"></i> Whats Been Used: </span>
+            <ul class="mt-2 list-unstyled d-flex flex-column gap-sm-2 gap-1 text-wrap">
+                <span class="text-center text-success rounded bg-success bg-opacity-10">nodemailer</span>
+                <span class="text-center text-success rounded bg-success bg-opacity-10">passport</span>
+                <span class="text-center text-success rounded bg-success bg-opacity-10">joi - validator</span>
+                <span class="text-center text-success rounded bg-success bg-opacity-10">express-session</span>
+                <span class="text-center text-success rounded bg-success bg-opacity-10">jwt</span>
+                <li class="text-center text-success rounded bg-success bg-opacity-10">mongoose, MongoDB Atlas</li>
+                <li class="text-center text-success rounded bg-success bg-opacity-10 text-wrap">crypto (node module)
+                    <br />(bcryptjs alternative)</li>
+            </ul>
+        </div>
+        <div>
+            <ul class="list-unstyled text-start">
+                <%if(loggedin==true){%>
+                    <li>
+                        <span class="bg-light fw-bold text-black-50 px-2 rounded-pill">
+                            <i class="fa-solid fa-circle-info"></i> Logged In User</span>
+                    </li>
+                    <li>Name: <%=data.name%>
+                    </li>
+                    <li>Email: <%=data.email%>
+                    </li>
+                    <li>
+                        <img src="<%=data.photo%>" class="rounded-circle" style="height: 100px" alt="profile-pic" />
+                    </li>
+                    <li>Provider: <%=data.provider%>
+                    </li>
+                    <li>
+                        <%=data.photo%>
+                    </li>
+                    <%}else{%>
+                        <li class=" "> You can login from <a href="/auth" class="text-decoration-none">auth options</a> page
+                        </li>
+                        <%}%>
+            </ul>
+        </div>
+    </div>
+    <!--start col-2 -->
+    <div class="col-md-9 ">
+        <span class="rounded text-success pb-1 h6">
+            <i class="fas fa-hand-point-right"></i> Read Me </span>
+        <ul class="d-flex flex-column gap-1 text-wrap text-start ps-4 align-content-between list-unstyled">
+            <li>
+            <li class="rounded"><strong>Objectives: </strong></li>
+            <ul>
+                <li>Implementation of a registration system using passport</li>
+            </ul>
+            </li>
+            <li>
+            <li class="rounded"><strong>Strategies Implemented: </strong></li>
+            <ul
+                class="d-flex justify-content-between text-wrap bg-success bg-opacity-10 rounded-pill list-unstyled px-3 text-wrap">
+                <li>Local (Email, Password)</li>
+                <li>Google</li>
+                <li>Facebook</li>
+                <li>Github</li>
+                <li>Linkedin</li>
+                <Li>Yahoo</Li>
+                <li>Phone</li>
+            </ul>
+            </li>
+            <li>
+            <li class="rounded"><strong>Features: </strong></li>
+            <ul>
+                <li>Email verification required before making a successfull login</li>
+                <li>Email verification link encrypted</li>
+                <li> Verification link only valid untill expiration time - which is generated and saved in db while
+                    sending the link to the user </li>
+                <li>Email verification required before making a successfull login</li>
+                <li>Account data saved in mongodb atlas, and shown after successfull login</li>
+            </ul>
+            </li>
+            <li>
+            <li class="rounded"><strong>Notes: </strong></li>
+            <ul>
+                <li>Just implementing the passport stratgies was the goal here. This project offers nothing further.
+                </li>
+            </ul>
+            </li>
+            <li>
+                <div class="d-flex flex-row justify-content-between">
+                    <div>
+                        <ul class="list-unstyled text-start">
+                            <li class="rounded text-success">
+                                <strong>Open Routes</strong>
+                            </li>
+                            <ul>
+                                <li><a href="/auth">auth</a></li>
+                                <li><a href="/auth/signin">auth/signin</a></li>
+                                <li><a href="/auth/signup">auth/signup</a></li>
+                            </ul>
+                        </ul>
+                    </div>
+                    <div c>
+                        <ul class="list-unstyled ">
+                            <li class="rounded text-danger">
+                                <strong>Protected Routes </strong>
+                            </li>
+                            <ul>
+                                <li><a href="#">#</a></li>
+                                <li><a href="#">#</a></li>
+                                <li><a href="#">#</a></li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <!--end col-2 -->
+    </div>
+    <!--end row -->
+</div>
+<div class="container   mt-2 mx-auto row bg-success bg-opacity-10 py-2 rounded-3">
+    <div>
+        <ul class="list-unstyled text-start">
+            <%if(loggedin==true){%>
+                <li>
+                    <span class="bg-light fw-bold text-black-50 px-2 rounded-pill">
+                        <i class="fa-solid fa-circle-info"></i> Logged In User</span>
+                </li>
+                <li>Name: <%=data.name%>
+                </li>
+                <li>Email: <%=data.email%>
+                </li>
+                <li>
+                    <img src="<%=data.photo%>" class="rounded-circle" style="height: 100px" alt="profile-pic" />
+                </li>
+                <li>Provider: <%=data.provider%>
+                </li>
+                <li>
+                    <%=data.photo%>
+                </li>
+                <%}else{%>
+                    <li class=" "> You can login from <a href="/auth" class="text-decoration-none">auth options</a> page
+                    </li>
+                    <%}%>
+        </ul>
+    </div>
+</div>

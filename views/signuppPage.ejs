@@ -1,0 +1,133 @@
+<div>
+    <div class="row my-4 px-md-0 px-2 row d-flex gap-5 justify-content-around">
+        <div class="col-md-4">
+            <div class="nav nav-tabs d-flex justtify-content-center mb-2 " id="nav-tab" role="tablist">
+                <button class="border-1 border-success btn btn-sm w-50
+                                active bg-warning bg-opacity-10 text-dark fw-normal py-0" id="nav-signup-tab"
+                    data-bs-toggle="tab" data-bs-target="#nav-signup">
+                    <FaSignInAlt class="mb-1 me-1  text-success" /> Sign Up
+                </button>
+                <button
+                    class="border-1 border-success btn btn-sm w-50 bg-warning bg-opacity-10 text-dark fw-normal py-0"
+                    id="nav-signin-tab" data-bs-toggle="tab" data-bs-target="#nav-signin">
+                    <FaUserPlus class="mb-1 me-1 text-success" />Sign In
+                </button>
+            </div>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show h-100 active" id="nav-signup">
+                    <div>
+                        <div class="d-flex justify-content-start">
+                            <div class="d-block w-50 bg-secondary bg-opacity-25 shadow  mb-2" style="height: 2px;">
+                            </div>
+                        </div>
+                        <div class="d-block w-100" id="msgsignup" style="min-height: 25px;">
+                            <%if(typeof errors !=='undefined' ){%>
+                                <ul class="list-unstyled ">
+                                    <%errors.map(err=>{%> <li class="text-danger">
+                                            <%=err%>
+                                        </li>
+                                        <%})%>
+                                </ul>
+                                <%}%>
+                        </div>
+                        <form action="/auth" method="POST" class="mt-2">
+                            <div class="w-100 form-group text-start mb-3">
+                                <label for="name">Full Name</label>
+                                <input type="name" name="name" class="form-control text-center" placeholder="Your Name"
+                                    value="<%= typeof name != 'undefined' ? name : 'masumkhan' %>" />
+                            </div>
+                            <div class="form-group text-start mb-3">
+                                <label for="email">Email masum498673 masumkhan081</label>
+                                <input type="email" name="email" class="form-control text-center"
+                                    placeholder="Enter Email" value="masumkhan.medilifesolution@gmail.com" />
+                            </div>
+                            <div class="form-group text-start mb-3">
+                                <label for="password ">Password</label>
+                                <input type="password " name="password" class="form-control text-center"
+                                    placeholder="Password ?"
+                                    value="<%= typeof password != 'undefined' ? password : '123456' %>" />
+                            </div>
+                            <div class="form-group text-start mb-2">
+                                <label for="confirmpassword ">Confirm Password</label>
+                                <input type="password " name="confirmpassword" class="form-control text-center"
+                                    placeholder="Password again ... "
+                                    value="<%= typeof password2 != 'undefined' ? password2 : '123456' %>" />
+                            </div>
+                            <div class="form-group mb-2  ">
+                                <button type="submit "
+                                    class=" mt-3 btn btn-sm bg-success bg-opacity-50 float-end rounded w-100"> Register
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane fade show " id="nav-signin">
+                    <div>
+                        <div class="d-flex justify-content-end">
+                            <div class="d-block w-50 bg-secondary bg-opacity-25 shadow mb-2" style="height: 2px;">
+                            </div>
+                        </div>
+                        <div class="d-block w-100" id="msgsignin" style="min-height: 25px;">
+                            <%if(typeof errors !=='undefined' ){%>
+                                <ul class="list-unstyled ">
+                                    <%errors.map(err=>{%> <li class="text-danger">
+                                            <%=err%>
+                                        </li>
+                                        <%})%>
+                                </ul>
+                                <%}%>
+                        </div>
+                        <form action="/auth/signin" method="POST" class="mt-4">
+                            <div class="form-group mb-2  ">
+                                <label for="email" class="text-start w-100 ">Email</label>
+                                <input type="email" name="username" id="email" class="form-control text-center "
+                                    placeholder="Enter email"
+                                    value="<%=typeof email !='undefined' ? email : 'masumkhan.medilifesolution@gmail.com' %>" />
+                            </div>
+                            <div class="form-group mb-2  ">
+                                <label for="password" class="text-start w-100 ">12345678</label>
+                                <input type="password " name="password" password="password"
+                                    class="form-control text-center " placeholder="Password ? "
+                                    value="<%=typeof password !='undefined' ? password : '123456' %>" />
+                            </div>
+                            <div class="form-group mb-2  ">
+                                <button type="submit "
+                                    class=" mt-3 btn btn-sm bg-success bg-opacity-50 float-start rounded w-100"> Log In
+                                </button>
+                            </div>
+                        </form>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 pb-4 col-sm-6 rounded-3 ">
+            <span class=" text-center d-block "> Or, Quick Signup With: </span>
+            <div class="py-4 d-flex flex-column justify-content-around align-items-center gap-3 h-100">
+                <a href="auth/linkedin" class="fw-bold btn btn-sm w-75 bg-success bg-opacity-10 shadow-sm rounded-3"><i
+                        class="fa-brands fa-linkedin"></i> Linkdin </a>
+                <a href="/auth/google" class="fw-bold btn btn-sm w-75 bg-light bg-opacity-50 shadow-sm"> <i
+                        class="fa-brands fa-google text-success"></i> Google</a>
+                <a href="/auth/facebook" class="fw-bold w-75 bg-info shadow bg-opacity-10 btn btn-sm shadow-sm"> <i
+                        class="fa-brands fa-facebook text-primary"></i> Facebook </a>
+                <a href="/auth/github" class="fw-bold w-75 bg-secondary bg-opacity-10 shadow btn btn-sm shadow-sm"> <i
+                        class="fa-brands fa-github "></i> Github </a>
+                <a href="" class="fw-bold w-75 bg-secondary bg-opacity-10 shadow btn btn-sm shadow-sm"><i
+                        class="fa-brands fa-yahoo"></i> Yahoo </a>
+                <form method="POST"
+                    class="w-75 mt-0 d-flex flex-column gap-2 rounded-3 fw-bold text-center text-black-50 ">
+                    <label>Or Use Phone Number</label>
+                    <input disabled=true class="bg-light bg-opacity-50 border-0" placeholder="Phone Number"></input>
+                    <button disabled=true id="sign-in-button" type="submit"
+                        class="w-100 btn btn-sm bg-secondary bg-opacity-50"> Signin </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => {
+            document.getElementById("msgsignup").innerHTML = "";
+            document.getElementById("msgsignin").innerHTML = "";
+        }, 3000)
+    </script>
+</div>
