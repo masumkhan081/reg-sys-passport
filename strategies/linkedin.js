@@ -13,7 +13,7 @@ passport.use(
     {
       clientID: process.env.LINKEDIN_ID || "86dc7t51wg2bed",
       clientSecret: process.env.LINKEDIN_SECRET || "Tkjw6TomgBLj2tvL",
-      callbackURL: "/auth/linkedin/callback",
+      callbackURL: process.env.REDIRECT_DOMAIN + "/auth/linkedin/callback",
       scope: ["r_emailaddress", "r_liteprofile"],
     },
     function (accessToken, refreshToken, profile, done) {
