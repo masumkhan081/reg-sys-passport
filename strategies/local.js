@@ -10,21 +10,25 @@ const { do_check } = require("../controller/validate");
 const { get_calculatedTime } = require("./verify");
 const dotenv = require("dotenv");
 dotenv.config();
-
 //
 passport.use(
   new LocalStrategy(function (username, password, done) {
     userModel.findOne({ email: username, password }, function (err, user) {
       if (err) {
-        return done(err);
+        console.log("err finding user from db");
+        return done(null, { status: "error", data: err });
       } else if (!user) {
         console.log("no user .. found");
-        return done(null, { status: "null", email: username });
-      } else if (user.verified == false) {
+        return done(null, { status: "null", email: username }); // i can cut email from here...
+      }
+      //
+      else if (user.verified == false) {
         console.log("not verified ...");
         return done(null, { status: "not-verified", email: username });
-      } else {
-        return done(null, user);
+      }
+      //
+      else {
+        return done(null, { status: "logged-in", data: user });
       }
     });
   })
@@ -38,7 +42,6 @@ passport.deserializeUser((user, done) => {
 
 //     -----------------------------------------------       SIGN IN
 local.post("/auth/signin", passport.authenticate("local"), (req, res) => {
-  console.log("async:         ", JSON.stringify(req.user));
   if (req.user.status == "null") {
     res.render("authPage", {
       errors: ["No account associated with this email"],
@@ -48,11 +51,6 @@ local.post("/auth/signin", passport.authenticate("local"), (req, res) => {
     });
   } else if (req.user.status == "not-verified") {
     res.redirect("/auth/verification");
-    // res.render("sendVerification", {
-    //   loggedin: false,
-    //   msg: "Account found but not verified. ",
-    //   email: req.body.username,
-    // });
   } else {
     res.redirect("/");
   }
@@ -64,9 +62,7 @@ local.post("/auth/signin/verify", async (req, res) => {
   userModel.findOne({ email: email }, function (err, doc) {
     const userId = doc._id;
     console.log(doc._id + "         doc:   " + JSON.stringify(doc));
-    //
     //   masumkhan.medilifesolution@gmail.com      masumkhan.medilifesolutionnn@gmail.com
-    //
     const token = crypto.createHash("sha256").update(email).digest("hex");
     const expires = get_calculatedTime();
     //

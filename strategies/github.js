@@ -17,8 +17,19 @@ passport.use(
       callbackURL: "http://localhost:3000/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, done) {
-      console.log("user- github: " + JSON.stringify(profile));
-      return done(null, profile);
+      //
+      const name = profile["displayName"];
+      const email = profile["emails"][0].value;
+      const photo = profile["photos"][0].value;
+      const provider = profile["provider"];
+      //
+      return done(null, {
+        status: "logged-in",
+        name,
+        email,
+        photo,
+        provider,
+      });
     }
   )
 );
@@ -36,7 +47,7 @@ githubRoutes.get(
 
 githubRoutes.get(
   "/auth/github/callback",
-  passport.authenticate("github", { failureRedirect: "/login" }),
+  passport.authenticate("github", { failureRedirect: "/auth" }),
   function (req, res) {
     console.log("Successful authentication -github.");
     res.redirect("/");

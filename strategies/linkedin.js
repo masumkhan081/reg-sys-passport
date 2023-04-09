@@ -21,9 +21,19 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, done) {
       process.nextTick(function () {
-        //console.log("user found : " + JSON.stringify(profile));
-        console.log("user found : --linkedin  ");
-        return done(null, profile);
+        //
+        const name = profile["displayName"];
+        const email = profile["emails"][0].value;
+        const photo = profile["photos"][0].value;
+        const provider = profile["provider"];
+        //
+        return done(null, {
+          status: "logged-in",
+          name,
+          email,
+          photo,
+          provider,
+        });
       });
     }
   )
@@ -45,8 +55,6 @@ linkedinRoutes.get(
 linkedinRoutes.get(
   "/auth/linkedin",
   passport.authenticate("linkedin", { state: "SOME STATE" }),
-  function (req, res) {
-    console.log("req.user : " + JSON.stringify(req.user));
-  }
+  function (req, res) {}
 );
 module.exports = linkedinRoutes;

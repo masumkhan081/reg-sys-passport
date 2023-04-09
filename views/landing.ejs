@@ -24,19 +24,19 @@
                     </li>
                     <li>Name: <%=data.name%>
                     </li>
-                    <li>Email: <%=data.email%>
-                    </li>
                     <li>
                         <img src="<%=data.photo%>" class="rounded-circle" style="height: 100px" alt="profile-pic" />
                     </li>
                     <li>Provider: <%=data.provider%>
                     </li>
-                    <li>
-                        <%=data.photo%>
+                    <li>Email: <%=data.email%>
                     </li>
+                    <!-- <li>
+                        <%=data.photo%>
+                    </li> -->
                     <%}else{%>
-                        <li class=" "> You can login from <a href="/auth" class="text-decoration-none">auth options</a> page
-                        </li>
+                        <li class=" "> You can login from <a href="/auth" class="text-decoration-none">auth options</a>
+                            page </li>
                         <%}%>
             </ul>
         </div>
@@ -115,31 +115,4 @@
         <!--end col-2 -->
     </div>
     <!--end row -->
-</div>
-<div class="container   mt-2 mx-auto row bg-success bg-opacity-10 py-2 rounded-3">
-    <div>
-        <ul class="list-unstyled text-start">
-            <%if(loggedin==true){%>
-                <li>
-                    <span class="bg-light fw-bold text-black-50 px-2 rounded-pill">
-                        <i class="fa-solid fa-circle-info"></i> Logged In User</span>
-                </li>
-                <li>Name: <%=data.name%>
-                </li>
-                <li>Email: <%=data.email%>
-                </li>
-                <li>
-                    <img src="<%=data.photo%>" class="rounded-circle" style="height: 100px" alt="profile-pic" />
-                </li>
-                <li>Provider: <%=data.provider%>
-                </li>
-                <li>
-                    <%=data.photo%>
-                </li>
-                <%}else{%>
-                    <li class=" "> You can login from <a href="/auth" class="text-decoration-none">auth options</a> page
-                    </li>
-                    <%}%>
-        </ul>
-    </div>
 </div>

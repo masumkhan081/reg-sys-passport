@@ -5,18 +5,20 @@ const { tokenModel, userModel } = require("../models/UserModel");
 
 verifyRoutes.get("/:id/:token", async (req, res) => {
   const { id, token } = req.params;
-  console.log(id + "    :: extracted ::  " + token);
+  // console.log(id + "    :: extracted ::  " + token);
   try {
     const user = await userModel.findById(id);
     if (!user) return res.status(400).send("Invalid link");
 
-    const token = await tokenModel.findOne({
+    const tokenData = await tokenModel.findOne({
       userId: user._id,
       token: req.params.token,
     });
+
+    console.log("token id : ---------- " + tokenID);
     console.log("exp:  " + token.expires);
-    if (token) {
-      if (tokenValid(token.expires.split(".")) == true) {
+    if (tokenData) {
+      if (tokenValid(tokenData.expires.split(".")) == true) {
         if (user.verified == true) {
           res.render("verificationMessage", {
             msg: "Already verified.",
@@ -27,22 +29,26 @@ verifyRoutes.get("/:id/:token", async (req, res) => {
           userModel.findByIdAndUpdate(
             user._id,
             { verified: true },
-            function (err, docs) {
+            function (err, updatedUser) {
+              if (updatedUser) {
+                tokenModel.findByIdAndRemove(
+                  tokenData._id,
+                  function (err, deletedToken) {
+                    if (deletedToken) {
+                      console.log("Removed token : ", deletedToken);
+                      res.render("authPage", {
+                        msg: "Email verified: you may login now.",
+                        loggedin: false,
+                      });
+                    }
+                    if (err) {
+                      console.log(err);
+                    }
+                  }
+                );
+              }
               if (err) {
                 console.log(err);
-              } else {
-                console.log("Updated User : ", docs);
-                tokenModel.findByIdAndRemove(user._id, function (err, docs) {
-                  if (err) {
-                    console.log(err);
-                  } else {
-                    console.log("Removed User : ", docs);
-                    res.render("authPage", {
-                      msg: "email verified: you can login now.",
-                      loggedin: true,
-                    });
-                  }
-                });
               }
             }
           );

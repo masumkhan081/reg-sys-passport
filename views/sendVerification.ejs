@@ -1,4 +1,4 @@
-<div class="row mt-5 container mx-auto bg-light">
+<div class="row mt-5 container mx-auto bg-warning bg-opacity-10 rounded-3 py-2 shadow-sm">
     <div class="col-md-5 d-flex flex-column justify-content-center border-end border-info border-1 rounded-3  ">
         <span class="badge text-dark bg-danger bg-opacity-10 px-2 mb-4">
             <%=msg%>
@@ -15,22 +15,21 @@
         </form>
         <br>
     </div>
-    <div
-        class=" d-flex flex-column col-md-6 justify-content-around align-items-center border-start border-success border-1 rounded-3">
-        <span class="h6 text-start text-black"> Or, Login In With</span>
-        <div class=" rounded-3 px-2 mx-auto py-4 d-flex flex-column justify-content-around gap-2 h-100">
-            <a href="auth/linkedin" class="btn btn-sm btn-outline-success w-100"><i class="fa-brands fa-linkedin"></i>
+    <div class=" d-flex flex-column col-md-6 justify-content-center align-items-center mx-auto rounded-3">
+        <span class="h6 text-start text-black"> Or, Log in Via</span>
+        <div
+            class=" rounded-3 px-2 mx-auto py-2 d-flex flex-column align-items-center justify-content-around gap-2 h-100 w-100">
+            <a href="auth/linkedin" class="btn btn-sm btn-outline-success w-50"><i class="fa-brands fa-linkedin"></i>
                 Linkdin </a>
-            <a href="/auth/google" class="btn btn-sm btn-outline-success w-100 "> <i class="fa-brands fa-google"></i>
+            <a href="/auth/google" class="btn btn-sm btn-outline-success w-50 "> <i class="fa-brands fa-google"></i>
                 Google</a>
-            <a href="/auth/facebook" class="btn btn-sm btn-outline-success w-100 "> <i
+            <a href="/auth/facebook" class="btn btn-sm btn-outline-success w-50 "> <i
                     class="fa-brands fa-facebook "></i> Facebook </a>
-            <a href="/auth/github" class="btn btn-sm btn-outline-success w-100"> <i class="fa-brands fa-github "></i>
+            <a href="/auth/github" class="btn btn-sm btn-outline-success w-50"> <i class="fa-brands fa-github "></i>
                 Github </a>
-            <a href="/auth/yahoo" class="btn btn-sm btn-outline-success w-100"><i class="fa-brands fa-yahoo"></i> Yahoo
+            <a href="/auth/yahoo" class="btn btn-sm btn-outline-success w-50"><i class="fa-brands fa-yahoo"></i> Yahoo
             </a>
-            <form method="POST"
-                class="w-100 mt-0 d-flex flex-column gap-2 rounded-3 fw-bold text-center text-black-50 ">
+            <form method="POST" class="w-50 mt-0 d-flex flex-column gap-2 rounded-3 fw-bold text-center text-black-50 ">
                 <label class="d-block w-100 text-wrap">Or Use Phone Number</label>
                 <input disabled=true class="bg-light bg-opacity-50 border-0" placeholder="Phone Number"></input>
                 <button disabled=true id="sign-in-button" type="submit"

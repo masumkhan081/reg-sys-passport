@@ -22,7 +22,6 @@ app.use(ejsLayout);
 
 //     secret: "terimaki",
 //     cookie: { maxAge: 1000 * 60 * 60 * 60 },
-
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(
   session({

@@ -16,12 +16,22 @@ passport.use(
       clientID: process.env.META_APP_ID,
       clientSecret: process.env.META_APP_SECRET,
       callbackURL: "http://localhost:3000/auth/facebook/callback",
-
-      profileFields: ["id", "email", "name", "image"],
+      profileFields: ["id", "displayName", "photos", "email"],
     },
     function (accessToken, refreshToken, profile, cb) {
-      console.log("user " + JSON.stringify(profile));
-      cb(null, profile);
+      //
+      const name = profile["displayName"];
+      const email = profile["emails"][0].value;
+      const photo = profile["photos"][0].value;
+      const provider = profile["provider"];
+      //
+      return cb(null, {
+        status: "logged-in",
+        name,
+        email,
+        photo,
+        provider,
+      });
     }
   )
 );
@@ -39,7 +49,6 @@ fbRoutes.get(
   "/auth/facebook/callback",
   passport.authenticate("facebook", { failureRedirect: "/auth" }),
   function (req, res) {
-    // Successful authentication, redirect home.
     console.log("Successful authentication");
     res.redirect("/");
   }

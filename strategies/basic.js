@@ -5,38 +5,32 @@ dotenv.config();
 //
 
 basicRoutes.get("/", (req, res) => {
-  console.log(typeof req.user + "  here ...", JSON.stringify(req.user));
-
-  if (req.user == undefined) {
-    res.render("landing", {
-      loggedin: false,
-      user: "null",
-      data: "null",
-    });
-  } else if (req.user == "null") {
-    console.log("req.user : -- found    -- " + JSON.stringify(req.user));
-
-    let data = getAccountData(req.user);
-    console.log("data: --- " + JSON.stringify(data));
-    res.render("landing", {
-      loggedin: true,
-      user: req.user,
-      data,
-    });
-  } else if (req.user == "not-verified") {
-    res.redirect("/auth/verification");
-  }
-});
-basicRoutes.get("/auth/verification", (req, res) => {
+  //console.log(typeof req.user + "  here ...", JSON.stringify(req.user));
   if (
     req.user == undefined ||
     req.user.status == "null" ||
     req.user.status == "not-verified"
   ) {
+    res.render("landing", {
+      loggedin: false,
+      data: "null",
+    });
+  } else if (req.user.status == "logged-in") {
+    res.render("landing", {
+      loggedin: true,
+      data: req.user,
+    });
+  }
+});
+basicRoutes.get("/auth/verification", (req, res) => {
+  if (req.user == undefined || req.user.status == "null") {
+    res.render("authPage", { loggedin: false, user: null });
+  }
+  if (req.user.status == "not-verified") {
     res.render("sendVerification", {
       loggedin: false,
       msg: "Account found but not verified. ",
-      email: "",
+      email: req.user.email,
     });
   } else {
     res.redirect("/");
@@ -51,7 +45,7 @@ basicRoutes.get("/auth", (req, res) => {
   ) {
     res.render("authPage", { loggedin: false, user: null });
   } else {
-    res.render("authPage", { loggedin: true, user: req.user });
+    res.redirect("/");
   }
 });
 basicRoutes.get("/auth/signup", (req, res) => {
@@ -62,8 +56,7 @@ basicRoutes.get("/auth/signup", (req, res) => {
   ) {
     res.render("signupPage", { loggedin: false, user: null });
   } else {
-    res.render("signupPage", { loggedin: true, user: req.user });
-    // res.redirect("/")
+    res.redirect("/");
   }
 });
 basicRoutes.get("/auth/signin", (req, res) => {
@@ -72,10 +65,9 @@ basicRoutes.get("/auth/signin", (req, res) => {
     req.user.status == "null" ||
     req.user.status == "not-verified"
   ) {
-    res.render("signinPage", { loggedin: true, user: req.user });
+    res.render("signinPage", { loggedin: false, user: null });
   } else {
-    res.render("signinPage", { loggedin: true, user: req.user });
-    // res.redirect("/");
+    res.redirect("/");
   }
 });
 basicRoutes.get("/signout", (req, res) => {
@@ -83,43 +75,14 @@ basicRoutes.get("/signout", (req, res) => {
     if (err) {
       res.send("error loging out !");
     }
-    res.redirect("/");
+    res.redirect("/auth");
   });
 });
 
 function getAccountData(obj) {
-  // console.log("obj::::::       " + JSON.stringify(obj));
   let resultObj = {};
   let extra = {};
-  if (obj.provider == "linkedin") {
-    console.log(">>>>>    !!!");
-    resultObj.id = obj["id"];
-    resultObj.name = obj["displayName"];
-    resultObj.email = obj["emails"][0].value;
-    resultObj.photo = obj["photos"][0].value;
-    resultObj.provider = obj["provider"];
-    //
-    resultObj.extra = extra;
-    return resultObj;
-  }
-  if (obj.provider == "google") {
-    resultObj.name = obj["displayName"];
-    resultObj.email = obj["emails"][0].value;
-    resultObj.photo = obj["photos"][0].value;
-    resultObj.provider = obj["provider"];
-    //
-    resultObj.extra = extra;
-    return resultObj;
-  }
-  if (obj.provider == "facebook") {
-    resultObj.name = obj.name.givenName + " " + obj.name.familyName;
-    resultObj.email = obj["emails"][0].value;
-    // resultObj.photo = obj["photos"][0].value;
-    resultObj.provider = obj["provider"];
-    //
-    resultObj.extra = extra;
-    return resultObj;
-  }
+
   if (obj.provider == "github") {
     resultObj.name = obj["displayName"];
     resultObj.email = obj["emails"][0].value;

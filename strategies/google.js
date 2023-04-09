@@ -23,9 +23,14 @@ passport.use(
       callbackURL: "http://localhost:3000/auth/google/callback",
       profileFields: ["id", "emails", "name", "photos"], //This
     },
-    function (accessToken, refreshToken, profile, done) {
-      // console.log("dn:  " + JSON.stringify(profile));
-      done(null, profile);
+    function (accessToken, refreshToken, profile, cb) {
+      //
+      const name = profile["displayName"];
+      const email = profile["emails"][0].value;
+      const photo = profile["photos"][0].value;
+      const provider = profile["provider"];
+      //
+      return cb(null, { status: "logged-in", name, email, photo, provider });
     }
   )
 );
@@ -43,10 +48,8 @@ googleRoutes.get(
 
 googleRoutes.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/signin" }),
-  function (req, res) {
-    console.log("successfull auth: " + JSON.stringify(req.user));
-    // Successful authentication, redirect home.
+  passport.authenticate("google", { failureRedirect: "/auth" }),
+  (req, res) => {
     res.redirect("/");
   }
 );
