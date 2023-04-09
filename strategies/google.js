@@ -20,7 +20,7 @@ passport.use(
       clientSecret:
         "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" ||
         process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      callbackURL: "https://reg-sys-passport.onrender.com/auth/google/callback",
       profileFields: ["id", "emails", "name", "photos"], //This
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -44,6 +44,13 @@ passport.deserializeUser((user, done) => {
 googleRoutes.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["email", "profile"] })
+);
+
+googleRoutes.get(
+  "https://reg-sys-passport.onrender.com/auth/google/callback",
+  (req, res) => {
+    res.send("sdhhhsdskj");
+  }
 );
 
 googleRoutes.get(
