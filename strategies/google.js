@@ -20,7 +20,7 @@ passport.use(
       clientSecret:
         "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" ||
         process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.REDIRECT_DOMAIN + "/auth/linkedin/callback",
+      callbackURL: process.env.REDIRECT_DOMAIN + "/auth/google/callback",
       profileFields: ["id", "emails", "name", "photos"], //This
     },
     function (accessToken, refreshToken, profile, cb) {

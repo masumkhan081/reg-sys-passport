@@ -14,7 +14,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: process.env.REDIRECT_DOMAIN + "/auth/linkedin/callback",
+      callbackURL: process.env.REDIRECT_DOMAIN + "/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, done) {
       //
