@@ -20,7 +20,7 @@ passport.use(
       clientSecret:
         "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" ||
         process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      callbackURL: "/auth/google/callback",
       profileFields: ["id", "emails", "name", "photos"], //This
     },
     function (accessToken, refreshToken, profile, cb) {
