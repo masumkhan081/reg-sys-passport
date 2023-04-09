@@ -15,7 +15,7 @@ passport.use(
       // "1fdcdec9cc67718ae47b42af5dad77e0" ||
       clientID: process.env.META_APP_ID,
       clientSecret: process.env.META_APP_SECRET,
-      callbackURL: "http://localhost:3000/auth/facebook/callback",
+      callbackURL: process.env.REDIRECT_DOMAIN + "/auth/linkedin/callback",
       profileFields: ["id", "displayName", "photos", "email"],
     },
     function (accessToken, refreshToken, profile, cb) {
