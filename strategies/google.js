@@ -55,9 +55,11 @@ googleRoutes.get(
 
 googleRoutes.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/auth" }),
+  passport.authenticate("google", {
+    failureRedirect: "https://reg-sys-passport.onrender.com/auth",
+  }),
   (req, res) => {
-    res.redirect("/");
+    res.redirect("https://reg-sys-passport.onrender.com/");
   }
 );
 
